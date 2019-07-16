@@ -1,15 +1,15 @@
-#wordpress2fe
+# wordpress2fe
 
 WordPress deployment automation with Docker, Ansible and 2 nginx frontends.
 
-##Requirements
+## Requirements
 
 - Ansible 2.5 or greater;
 - Docker 1.13.1;
 - Docker SDK for Python;
 - nginx 1.12.2 or greater(frontend);
 
-##Tested with:
+## Tested with:
 
 - Ansible 2.8;
 - Docker 1.13.1;
@@ -45,7 +45,7 @@ ansible-playbook wordpressdeployment.yml --ask-pass --ask-become-pass
 ```
 dockernginx variable used to create template for nginx frontend at nginxfe role.
 
-##Additional info:
+## Additional info:
 
 Target host should be in known_hosts.
 It is supposed Ansible is able to access all hosts using ansuser with sudo privileges.
@@ -55,6 +55,7 @@ All docker images are official and pulled from docker hub.
 ## Roles 
 
 1) wpdocker
+
 Creates:
 - docker network;
 - docker volumes;
@@ -68,6 +69,7 @@ Mounts:
 Runs created containers.
 
 2) nginxfe
+
 Creates config for dockerizes application publishing.
 Places config to frontend servers.
 Restarts nginx service.
