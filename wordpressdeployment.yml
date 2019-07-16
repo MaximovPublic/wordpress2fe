@@ -1,0 +1,21 @@
+# Deploy WP with LEMP stack, add config to 2 nginx frontends
+
+- name: Install wordpress, nginx, php-fpm, mariadb
+  hosts: dockerhost
+  remote_user: ansuser
+  become: yes
+  become_method: sudo  
+  roles:
+    - wpdocker
+
+- name: Add config to the frontend servers
+  hosts: nginxfrontends
+  remote_user: ansuser
+  become: yes
+  become_method: sudo
+  vars:
+    dockernginx: "{{ groups['dockerhost'][0] }}"
+  roles:
+    - nginxfe
+
+  

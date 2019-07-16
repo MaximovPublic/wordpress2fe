@@ -1,0 +1,26 @@
+---
+- name: Pull wordpress php-fpm image
+  docker_image:
+    name: wordpress
+    source: pull
+    tag: "{{ docker_wordpress_version }}"
+
+- name: Run wordpress php-fpm container
+  docker_container:
+    name: "{{ docker_wordpress_container_name }}"
+    image: "docker.io/wordpress:{{ docker_wordpress_version }}"
+    state: started
+    env:
+      DB_HOST: docker_mysql_1
+      WORDPRESS_DB_HOST: "{{ docker_mariadb_container_name }}:3306"
+      WORDPRESS_DB_NAME: "{{ docker_mariadb_database }}"
+      WORDPRESS_DB_USER: "{{ docker_mariadb_user }}"
+      WORDPRESS_DB_PASSWORD: "{{ docker_mariadb_user_password }}"
+    networks_cli_compatible: yes
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases: "{{ docker_wordpress_container_name }}"
+    links:
+      - "{{ docker_mariadb_container_name }}"
+    volumes:
+      - "{{ docker_wordpress_volume }}:/var/www/html:rw"

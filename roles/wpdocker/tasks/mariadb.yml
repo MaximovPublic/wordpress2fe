@@ -1,0 +1,25 @@
+---
+- name: Pull mariadb image
+  docker_image:
+    name: mariadb
+    source: pull
+    tag: "{{ docker_mariadb_version }}"
+
+- name: Run mariadb container
+  docker_container:
+    name: "{{ docker_mariadb_container_name }}"
+    image: "docker.io/mariadb:{{ docker_mariadb_version }}"
+    state: started
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ docker_mariadb_root_password }}"
+      MYSQL_DATABASE: "{{ docker_mariadb_database }}"
+      MYSQL_USER: "{{ docker_mariadb_user }}"
+      MYSQL_PASSWORD: "{{ docker_mariadb_user_password }}"
+    networks_cli_compatible: yes
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases: "{{ docker_mariadb_container_name }}"
+    volumes:
+      - "{{ docker_mariadb_volume }}:/var/lib/mysql:rw"
+
+

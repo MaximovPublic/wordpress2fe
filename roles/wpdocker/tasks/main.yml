@@ -1,0 +1,7 @@
+---
+- include: createdockernetwork.yml
+- include: createdockervolumes.yml
+- include: mariadb.yml
+- include: wordpressphpfpm.yml
+- include: nginx.yml
+

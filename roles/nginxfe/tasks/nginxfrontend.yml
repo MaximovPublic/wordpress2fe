@@ -1,0 +1,11 @@
+---
+- name: Add publishing config to nginx frontends
+  template:
+    src: nginxfrontend.conf.j2
+    dest: "{{ nginx_config_directory }}/{{ domain }}.conf"
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+

@@ -1,0 +1,35 @@
+---
+- name: Pull nginx image
+  docker_image:
+    name: nginx
+    source: pull
+    tag: "{{ docker_nginx_version }}"
+
+- name: Create directory for nginx config
+  file:
+    path: "{{ docker_nginx_config_directory }}"
+    state: directory
+    mode: '0755'
+
+- name: Add publishing config
+  template:
+    src: examplecom.conf.j2
+    dest: "{{ docker_nginx_config_directory }}/{{ domain }}.conf"
+
+- name: Rung nginx container
+  docker_container:
+    name: "{{ docker_nginx_container_name }}"
+    image: "docker.io/nginx:{{ docker_nginx_version }}"
+    state: started
+    networks_cli_compatible: yes
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases: "{{ docker_nginx_container_name }}"
+    links:
+      - "{{ docker_wordpress_container_name }}"
+    ports:
+      - "0.0.0.0:{{ docker_nginx_public_port }}:80"
+    volumes:
+      - "{{ docker_nginx_config_directory }}/{{ domain }}.conf:/etc/nginx/conf.d/{{ domain }}.conf:ro"
+      - "{{ docker_wordpress_volume }}:/var/www/html:rw"
+

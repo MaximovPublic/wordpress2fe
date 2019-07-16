@@ -1,0 +1,29 @@
+---
+# Domain config
+domain: example.com
+
+# Docker network config
+docker_network_name: example_com_network
+
+#Docker volumes config
+docker_wordpress_volume: example_com_wordpress
+docker_mariadb_volume: example_com_mariadb
+
+# Database config
+docker_mariadb_container_name: example_com_mariadb
+docker_mariadb_version: "10.3"
+docker_mariadb_port: 3306
+docker_mariadb_root_password: wprootpassword
+docker_mariadb_database: wordpress
+docker_mariadb_user: wordpressuser
+docker_mariadb_user_password: wordpressuser
+
+# Wordpress config
+docker_wordpress_version: php7.1-fpm
+docker_wordpress_container_name: example_com_wordpress
+
+# Nginx config
+docker_nginx_version: "1.17"
+docker_nginx_container_name: example_com_nginx
+docker_nginx_public_port: 8081
+docker_nginx_config_directory: /opt/nginx/conf.d/

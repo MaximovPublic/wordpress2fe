@@ -1,0 +1,7 @@
+- name: Create a new docker mariadb volume
+  docker_volume:
+    name: "{{ docker_mariadb_volume }}" 
+
+- name: Create a new docker wordpress volume
+  docker_volume:
+    name: "{{ docker_wordpress_volume }}" 

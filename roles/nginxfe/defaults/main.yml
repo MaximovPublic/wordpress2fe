@@ -1,0 +1,7 @@
+---
+# Domain config
+domain: example.com
+
+# Nginx config
+docker_nginx_public_port: 8081
+nginx_config_directory: /etc/nginx/conf.d
